@@ -22,10 +22,10 @@ This app was built for the primary purpose as a for a prospective employer.
 - If you click the Next Page button and no results are returned, the Results Navigation component does not render.
 - Clicking the Previous and next buttons trigger a search for what currently exists in the search field, not the next page of results for the current query.
 - The close button for the error notification is currently not functional.
+- Cannot search more than 1 page.
 
 ## Todo
 
 - Make state immutable
 - Remove instances of Bulma CSS framework
 - Return an extendable list instead of a list with 20 elements
-

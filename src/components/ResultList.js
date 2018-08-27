@@ -12,10 +12,12 @@ class ResultList extends Component {
       <div className="popular-list">
         <List>
           {results.map(result => (
+            result.url !== null && result.url !== ''  &&(
             <div>
               <Result result={result} />
               <Divider />
             </div>
+            )
           ))}
         </List>
       </div>
