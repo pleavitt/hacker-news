@@ -1,14 +1,17 @@
 {
-  "name": "HackerNews-Search",
+  "name": "Hacker-news",
   "version": "1.0.0",
   "description": "A simple SPA that searches the HackerNews Api and returns results",
+  "homepage": "https://pleavitt.github.io/hacker-news/",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [
-    "hackernews"
+    "hackernews",
     "webpack4",
     "webpack",
     "javascript",
