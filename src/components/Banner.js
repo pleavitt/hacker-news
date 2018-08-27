@@ -6,13 +6,10 @@ class Banner extends Component {
   render() {
     const { title, author } = this.props;
     return (
-      <section className="hero is-dark">
-        <div className="hero-body">
-          <div className="container has-text-centered">
-            <h1 className="title">{title}</h1>
-            <h2 className="subtitle">by {author}</h2>
-          </div>
-        </div>
+      <section className="banner">
+            <h1>{title}</h1>
+            <h2>by {author}</h2>
+
       </section>
     );
   }
