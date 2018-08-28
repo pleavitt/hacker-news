@@ -15,7 +15,7 @@ class PageNav extends Component {
   handleClick(event) {
     const { query, currentPage, dispatch } = this.props;
     let nextPage;
-    if (event.target.innerText.includes('Next')) {
+    if (event.target.innerText.includes('MORE')) {
       nextPage = currentPage + 1;
     } else {
       nextPage = currentPage - 1;
@@ -26,40 +26,42 @@ class PageNav extends Component {
   }
 
   render() {
-    const { currentPage, totalPages, results } = this.props;
-    return (
-      <div className="pageNav">
-        {currentPage === 1 ? (
-          <Button variant="contained" color="primary" disabled>
-            Previous
-          </Button>
-        ) : (
-          <Button variant="contained" color="primary" onClick={this.handleClick}>
-            Previous
-          </Button>
-        )}
-        <div>
-          Page {currentPage} of {totalPages}
-        </div>
-        {results.length < 20 ? (
-          <Button variant="contained" color="primary" disabled>
-            Next page
-          </Button>
-        ) : (
-          <Button variant="contained" color="primary" onClick={this.handleClick}>
-            Next page
-          </Button>
-        )}
-      </div>
-    );
+    const { currentPage, totalPages, results, isFetching } = this.props;
+    let moreEndLoading;
+
+    if (isFetching) {
+      moreEndLoading = <div className="spinner" />;
+    } else if (currentPage < totalPages) {
+      moreEndLoading = (
+        <Button variant="contained" color="primary" onClick={this.handleClick}>
+          More
+        </Button>
+      );
+    } else if (results.length > 0) {
+      moreEndLoading = (
+        <Button variant="contained" color="primary" disabled>
+          End of results
+        </Button>
+      );
+    }
+
+    return <div className="pageNav">{moreEndLoading}</div>;
   }
 }
 
 PageNav.propTypes = {
-  currentPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  query: PropTypes.string.isRequired,
+  query: PropTypes.string,
   results: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+PageNav.defaultProps = {
+  currentPage: 0,
+  totalPages: 0,
+  query: '',
 };
 
 function mapStateToProps(state) {

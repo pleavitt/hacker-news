@@ -7,9 +7,8 @@ class Banner extends Component {
     const { title, author } = this.props;
     return (
       <section className="banner">
-            <h1>{title}</h1>
-            <h2>by {author}</h2>
-
+        <h1>{title}</h1>
+        <h2>by {author}</h2>
       </section>
     );
   }

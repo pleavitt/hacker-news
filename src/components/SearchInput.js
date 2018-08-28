@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import PropTypes from 'prop-types';
 
 import Search from '@material-ui/icons/Search';
 import { fetchResults } from '../redux/actions';
@@ -25,14 +26,15 @@ class SearchInput extends Component {
   }
 
   handleSubmit(event) {
+    const { query } = this.state;
+    const { dispatch } = this.props;
     event.preventDefault();
-    if (this.state.query !== '') {
-      this.props.dispatch(fetchResults(this.state.query));
-    }
+    dispatch(fetchResults(query));
   }
 
   render() {
-    const { isFetching } = this.props;
+    const { query } = this.state;
+
     return (
       <div className="searchField">
         <form onSubmit={this.handleSubmit}>
@@ -40,7 +42,7 @@ class SearchInput extends Component {
             id="search"
             label="Search"
             type="search"
-            value={this.state.query}
+            value={query}
             // className={classes.textField}
             margin="normal"
             onChange={this.handleChange}
@@ -53,18 +55,14 @@ class SearchInput extends Component {
             }}
           />
         </form>
-        {isFetching && (
-          <p className="loading">
-            Loading
-            <span>.</span>
-            <span>.</span>
-            <span>.</span>
-          </p>
-        )}
       </div>
     );
   }
 }
+
+SearchInput.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
 function mapStateToProps(state) {
   return state;

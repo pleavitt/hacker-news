@@ -3,29 +3,30 @@ export const searchReducer = (state = { isFetching: false, results: [] }, action
     case 'Start_Api_Call':
       return {
         currentPage: state.currentPage,
-        results: state.results,
         isFetching: true,
-        totalPages: state.totalPages,
         query: state.query,
+        results: state.results,
+        totalPages: state.totalPages,
       };
 
     case 'End_Api_Call':
       return {
-        isFetching: false,
-        results: action.results,
-        totalPages: action.totalPages,
         currentPage: action.currentPage,
+        isFetching: false,
         query: action.query,
+        results:
+          action.currentPage > 1 ? [...state.results, ...action.results] : [...action.results],
+        totalPages: action.totalPages,
       };
 
     case 'Error_Api_Call':
       return {
-        isFetching: false,
-        results: state.results,
-        error: action.error,
         currentPage: state.currentPage,
-        totalPages: state.totalPages,
+        error: action.error,
+        isFetching: false,
         query: state.query,
+        results: state.results,
+        totalPages: state.totalPages,
       };
 
     default:

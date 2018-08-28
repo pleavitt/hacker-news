@@ -6,10 +6,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 class Result extends Component {
   render() {
-    const { result } = this.props;
+    const { result, key } = this.props;
 
     return (
-      <ListItem key={result.title} button component="a" href={result.url}>
+      <ListItem key={key} button component="a" href={result.url}>
         <ListItemText
           primary={Parser(result._highlightResult.title.value)}
           secondary={result.url.split('/')[2]}
@@ -20,7 +20,12 @@ class Result extends Component {
 }
 
 Result.propTypes = {
-  result: PropTypes.object,
+  result: PropTypes.object.isRequired,
+  key: PropTypes.number,
+};
+
+Result.defaultProps = {
+  key: null,
 };
 
 export default Result;

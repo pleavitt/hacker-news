@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   render() {
-    const { results, error, isFetching } = this.props;
+    const { results, error, isFetching, currentPage } = this.props;
     return (
       <div className="app">
         <Banner title="Hacker News Search" author="Paul Leavitt" />
@@ -29,9 +29,9 @@ class App extends Component {
 
           <SearchInput />
 
-          {results.length > 0 && !isFetching && <ResultList results={results} />}
+          {results.length > 0 && currentPage > 0 && <ResultList results={results} />}
 
-          {results.length > 0 && !isFetching && <PageNav />}
+          <PageNav isFetching={isFetching} />
         </div>
       </div>
     );
@@ -42,6 +42,12 @@ App.propTypes = {
   results: PropTypes.array.isRequired,
   error: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
+  currentPage: PropTypes.number,
+};
+
+App.defaultProps = {
+  error: '',
+  currentPage: 0,
 };
 
 function mapStateToProps(state) {

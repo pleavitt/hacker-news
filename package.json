@@ -1,5 +1,5 @@
 {
-  "name": "Hacker-news",
+  "name": "hacker-news",
   "version": "1.0.0",
   "description": "A simple SPA that searches the HackerNews Api and returns results",
   "homepage": "https://pleavitt.github.io/hacker-news/",
