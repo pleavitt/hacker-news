@@ -17,6 +17,7 @@ export const searchReducer = (state = { isFetching: false, results: [] }, action
         results:
           action.currentPage > 1 ? [...state.results, ...action.results] : [...action.results],
         totalPages: action.totalPages,
+        newQuery: false,
       };
 
     case 'Error_Api_Call':

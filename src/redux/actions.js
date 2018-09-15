@@ -10,6 +10,7 @@ export const endApiCall = results => ({
   totalPages: results.nbPages,
   currentPage: results.page,
   query: results.query,
+  newQuery: false,
 });
 
 export const errorApiCall = () => ({

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 import Search from '@material-ui/icons/Search';
 import { fetchResults } from '../redux/actions';
@@ -13,6 +14,7 @@ class SearchInput extends Component {
     super(props, context);
     this.state = {
       query: '',
+      newQuery: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,6 +24,7 @@ class SearchInput extends Component {
   handleChange(event) {
     this.setState({
       query: event.target.value,
+      newQuery: true,
     });
   }
 
@@ -29,7 +32,9 @@ class SearchInput extends Component {
     const { query } = this.state;
     const { dispatch } = this.props;
     event.preventDefault();
-    dispatch(fetchResults(query));
+    if (query !== '') {
+      dispatch(fetchResults(query));
+    }
   }
 
   render() {
@@ -43,13 +48,12 @@ class SearchInput extends Component {
             label="Search"
             type="search"
             value={query}
-            // className={classes.textField}
             margin="normal"
             onChange={this.handleChange}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
-                  <Search />
+                  <Search onClick={this.handleSubmit} />
                 </InputAdornment>
               ),
             }}
