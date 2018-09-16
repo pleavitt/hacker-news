@@ -1,33 +1,30 @@
+import { START_FETCH, END_FETCH, ERROR_FETCH } from './actions';
+
 export const searchReducer = (state = { isFetching: false, results: [] }, action) => {
   switch (action.type) {
-    case 'Start_Api_Call':
+    case START_FETCH:
       return {
-        currentPage: state.currentPage,
+        ...state,
         isFetching: true,
-        query: state.query,
-        results: state.results,
-        totalPages: state.totalPages,
       };
 
-    case 'End_Api_Call':
+    case END_FETCH:
       return {
-        currentPage: action.currentPage,
+        ...state,
+        currentPage: action.data.page,
         isFetching: false,
-        query: action.query,
+        query: action.data.query,
         results:
-          action.currentPage > 1 ? [...state.results, ...action.results] : [...action.results],
-        totalPages: action.totalPages,
+          action.data.page > 1 ? [...state.results, ...action.data.hits] : [...action.data.hits],
+        totalPages: action.data.nbPages,
         newQuery: false,
       };
 
-    case 'Error_Api_Call':
+    case ERROR_FETCH:
       return {
-        currentPage: state.currentPage,
+        ...state,
         error: action.error,
         isFetching: false,
-        query: state.query,
-        results: state.results,
-        totalPages: state.totalPages,
       };
 
     default:

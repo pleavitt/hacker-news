@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
 import Search from '@material-ui/icons/Search';
 import { fetchResults } from '../redux/actions';
 import './SearchInput.css';
 
 class SearchInput extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       query: '',
       newQuery: true,
@@ -30,10 +30,10 @@ class SearchInput extends Component {
 
   handleSubmit(event) {
     const { query } = this.state;
-    const { dispatch } = this.props;
+    const { fetchResults } = this.props;
     event.preventDefault();
     if (query !== '') {
-      dispatch(fetchResults(query));
+      fetchResults(query);
     }
   }
 
@@ -64,12 +64,19 @@ class SearchInput extends Component {
   }
 }
 
-SearchInput.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchResults,
+    },
+    dispatch
+  );
 
 function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps)(SearchInput);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchInput);

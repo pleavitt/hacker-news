@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { logger } from 'redux-logger';
+
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { searchReducer } from './redux/reducer';
 
 import Banner from './components/Banner';
+import SearchComponent from './components/SearchComponent';
+
 import './App.css';
 import './sass/mystyles.scss';
-import SearchInput from './components/SearchInput';
-import PageNav from './components/PageNav';
-import ResultList from './components/ResultList';
-import SearchComponent from "./components/SearchComponent";
+
+const middleware = [logger, thunk];
+
+const store = createStore(searchReducer, composeWithDevTools(applyMiddleware(...middleware)));
 
 class App extends Component {
   componentWillMount() {
@@ -18,7 +26,9 @@ class App extends Component {
     return (
       <div className="app">
         <Banner title="Hacker News Search" author="Paul Leavitt" />
-        <SearchComponent />
+        <Provider store={store}>
+          <SearchComponent />
+        </Provider>
       </div>
     );
   }

@@ -1,20 +1,20 @@
 import api from '../utils/api';
 
+export const START_FETCH = 'START_FETCH';
+export const END_FETCH = 'END_FETCH';
+export const ERROR_FETCH = 'ERROR_FETCH';
+
 export const startApiCall = () => ({
-  type: 'Start_Api_Call',
+  type: 'START_FETCH',
 });
 
 export const endApiCall = results => ({
-  type: 'End_Api_Call',
-  results: results.hits,
-  totalPages: results.nbPages,
-  currentPage: results.page,
-  query: results.query,
-  newQuery: false,
+  type: 'END_FETCH',
+  data: results,
 });
 
 export const errorApiCall = () => ({
-  type: 'Error_Api_Call',
+  type: 'ERROR_FETCH',
   error: 'Something went wrong on the search',
 });
 
@@ -24,10 +24,16 @@ export const fetchResults = (query, page) => dispatch => {
   return api.hackerNewsStories(query, page).then(
     response => {
       const devsArr = response;
-      dispatch(endApiCall(devsArr));
+      dispatch({
+        type: 'END_FETCH',
+        data: devsArr,
+      });
     },
     err => {
-      dispatch(errorApiCall());
+      dispatch({
+        type: 'ERROR_FETCH',
+        error: err.message || 'Something went wrong on the search',
+      });
     }
   );
 };
