@@ -11,7 +11,6 @@ import Banner from './components/Banner';
 import SearchComponent from './components/SearchComponent';
 
 import './App.css';
-import './sass/mystyles.scss';
 
 const middleware = [logger, thunk];
 

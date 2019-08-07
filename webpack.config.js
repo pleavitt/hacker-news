@@ -33,8 +33,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(scss|css)$/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
@@ -49,7 +49,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'styles.css',
+      chunkFilename: 'styles.css',
     }),
     new HtmlWebPackPlugin({
       template: './src/index.html',

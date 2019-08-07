@@ -1,9 +1,7 @@
+/* eslint-disable react/no-unknown-property */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 import Search from '@material-ui/icons/Search';
 import { fetchResults } from '../redux/actions';
@@ -43,21 +41,19 @@ class SearchInput extends Component {
     return (
       <div className="searchField">
         <form onSubmit={this.handleSubmit}>
-          <TextField
-            id="search"
-            label="Search"
-            type="search"
-            value={query}
-            margin="normal"
-            onChange={this.handleChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <Search onClick={this.handleSubmit} />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <div className="relative text-gray-600">
+            <input
+              value={query}
+              margin="normal"
+              onChange={this.handleChange}
+              type="search"
+              className="bg-purple-white shadow rounded border-0 p-3"
+              placeholder="Search by name..."
+            />{' '}
+            <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+              <Search onClick={this.handleSubmit} />
+            </button>
+          </div>{' '}
         </form>
       </div>
     );

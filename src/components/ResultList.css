@@ -4,3 +4,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+em {
+  font-weight: bold;
+}

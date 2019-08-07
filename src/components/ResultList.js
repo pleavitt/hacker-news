@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import './ResultList.css';
-import Result from './Result.js';
+import Parser from 'html-react-parser';
+
+const Result = ({ key, result }) => (
+  <a key={key} href={result.url} className="block group hover:bg-blue p-4 border-b">
+    <p className="text-lg mb-1 text-black group-hover:text-white">
+      {Parser(result._highlightResult.title.value)}
+    </p>
+    <p className="text-gray-600 text-xs group-hover:text-white">{result.url.split('/')[2]}</p>
+  </a>
+);
 
 class ResultList extends Component {
   render() {
@@ -33,6 +42,15 @@ ResultList.propTypes = {
 
 ResultList.defaultProps = {
   results: [],
+};
+
+Result.propTypes = {
+  result: PropTypes.object.isRequired,
+  key: PropTypes.number,
+};
+
+Result.defaultProps = {
+  key: null,
 };
 
 export default ResultList;
